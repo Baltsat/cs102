@@ -60,10 +60,20 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     return plaintext
 
 
-def caesar_breaker_brute_force(ciphertext: str, dictionary: tp.Set[str]) -> int:
+def caesar_breaker(ciphertext: str, dictionary: tp.Set[str]) -> int:
     """
     Brute force breaking a Caesar cipher.
+    
+    >>> d = {"python", "java", "ruby"}
+    >>> caesar_breaker("python", d)
+    0
+    >>> caesar_breaker("sbwkrq", d)
+    3
     """
     best_shift = 0
-    # PUT YOUR CODE HERE
+
+    for word in dictionary:
+        for shift in range(26):
+            if decrypt_caesar(word, shift) == word:
+                best_shift = shift
     return best_shift
