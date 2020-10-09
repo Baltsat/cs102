@@ -49,9 +49,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
 
     while dt[-1][2]:
         phi, e = e, dt[-1][2]
-        dt.append([
-            phi, e, phi % e, phi // e
-        ])
+        dt.append([phi, e, phi % e, phi // e])
         length += 1
 
     dt[-1].append(0)
@@ -59,9 +57,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
 
     for i in range(length - 2, -1, -1):
         x, y = dt[i + 1][-2], dt[i + 1][-1]
-        dt[i].extend([
-            y, x - y * dt[i][3]
-        ])
+        dt[i].extend([y, x - y * dt[i][3]])
 
     return dt[0][-1] % dt[0][0]
 

@@ -63,7 +63,7 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
 def caesar_breaker(ciphertext: str, dictionary: tp.Set[str]) -> int:
     """
     Brute force breaking a Caesar cipher.
-    
+
     >>> d = {"python", "java", "ruby"}
     >>> caesar_breaker("python", d)
     0
