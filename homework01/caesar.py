@@ -74,6 +74,6 @@ def caesar_breaker(ciphertext: str, dictionary: tp.Set[str]) -> int:
 
     for word in dictionary:
         for shift in range(26):
-            if decrypt_caesar(word, shift) == word:
+            if decrypt_caesar(ciphertext, shift) == word:
                 best_shift = shift
     return best_shift
