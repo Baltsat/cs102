@@ -16,7 +16,8 @@ def display(grid: List[List[str]]) -> None:
     for row in range(9):
         print(
             "".join(
-                grid[row][col].center(width) + ("|" if str(col) in "25" else "") for col in range(9)
+                grid[row][col].center(width) + ("|" if str(col) in "25" else "")
+                for col in range(9)
             )
         )
         if str(row) in "25":
@@ -115,8 +116,12 @@ def find_possible_values(grid: List[List[str]], pos: Tuple[int, int]) -> Set[str
     True
     """
     values = set("123456789")
-    return values - set(get_row(grid, pos)) - set(get_col(grid, pos)) - set(get_block(grid, pos))
-
+    return (
+        values
+        - set(get_row(grid, pos))
+        - set(get_col(grid, pos))
+        - set(get_block(grid, pos))
+    )
 
 def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
     """ Решение пазла, заданного в grid """
@@ -223,7 +228,12 @@ import multiprocessing
 import threading
 
 if __name__ == "__main__":
-    for filename in ["puzzle1.txt", "puzzle2.txt", "puzzle3.txt", "hard_puzzles.txt"]:
+    for filename in [
+        "puzzle1.txt",
+        "puzzle2.txt",
+        "puzzle3.txt",
+        "hard_puzzles.txt",
+    ]:
         # grid = read_sudoku(fname)
         # display(grid)
         # solution = solve(grid)
