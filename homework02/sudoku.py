@@ -100,6 +100,7 @@ def find_empty_positions(grid: List[List[str]]) -> Optional[Tuple[int, int]]:
         for col in range(length):
             if grid[row][col] == ".":
                 return row, col
+    return None
 
 
 def find_possible_values(grid: List[List[str]], pos: Tuple[int, int]) -> Set[str]:
@@ -146,6 +147,7 @@ def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
             return solution
 
     grid[row][col] = "."
+    return None
 
 
 def check_solution(solution: List[List[str]]) -> bool:
@@ -192,7 +194,8 @@ def generate_sudoku(N: int) -> List[List[str]]:
     True
     """
 
-    grid = solve([["."] * 9 for _ in range(9)])
+    # grid = solve([["."] * 9 for _ in range(9)])
+    grid = [["."] * 9 for _ in range(9)]
     N = 0 if N > 81 else 81 - N
 
     while N != 0:
@@ -202,7 +205,6 @@ def generate_sudoku(N: int) -> List[List[str]]:
         if grid[row][col] != ".":
             grid[row][col] = "."
             N -= 1
-
     return grid
 
 
