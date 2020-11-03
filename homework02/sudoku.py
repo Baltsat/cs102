@@ -196,7 +196,8 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
 
-    grid = solve([["."] * 9 for _ in range(9)])  # type : ignore
+    grid = [["."] * 9 for _ in range(9)]
+    grid = solve(grid)  # type: ignore
 
     cnt = 81
     while cnt > N:
