@@ -90,7 +90,9 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     return block
 
 
-def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
+def find_empty_positions(
+    grid: tp.List[tp.List[str]],
+) -> tp.Optional[tp.Tuple[int, int]]:
     """Найти первую свободную позицию в пазле
     >>> find_empty_positions([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']])
     (0, 2)
@@ -172,7 +174,6 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     return True
 
 
-
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
     >>> grid = generate_sudoku(40)
@@ -195,9 +196,8 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
 
-    grid = solve([["."] * 9 for _ in range(9)])
-    
-    #There are N points on the grid
+    grid = solve([["."] * 9 for _ in range(9)])  # type : ignore
+
     cnt = 81
     while cnt > N:
         row = random.randint(0, 8)
