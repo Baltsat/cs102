@@ -55,15 +55,15 @@ class GameOfLife:
                 if event.type == QUIT:
                     running = False
 
-            # elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-            #     w, h = event.pos[0] // self.cell_size, event.pos[1] // self.cell_size
-            #     self.grid[h][w] = 0 if self.grid[h - 1][w - 1] else 1
-            #
-            # elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-            #     pause = not pause
-            #
-            # elif event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-            #     running = False
+                elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    w, h = event.pos[0] // self.cell_size, event.pos[1] // self.cell_size
+                    self.grid[h][w] = 0 if self.grid[h - 1][w - 1] else 1
+
+                elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+                    pause = not pause
+
+                elif event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    running = False
 
             self.draw_lines()
 
