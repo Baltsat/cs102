@@ -1,12 +1,21 @@
 import copy
+
 import pygame
-from life import GameOfLife
 from pygame.locals import *
+
+from life import GameOfLife
 from ui import UI
 
 
 class GUI(UI):
-    def __init__(self, life: GameOfLife, cell_size: int = 10, speed: int = 10) -> None:
+    def __init__(
+        self,
+        life: GameOfLife,
+        cell_size: int = 10,
+        speed: int = 10,
+        width: int = 100,
+        height: int = 140,
+    ) -> None:
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -28,15 +37,13 @@ class GUI(UI):
     def draw_lines(self) -> None:
         """ Отрисовать сетку """
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (x, 0), (x, self.height))
+            pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (0, y), (self.width, y))
+            pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def draw_grid(self) -> None:
-        white = pygame.Color('white')
-        green = pygame.Color('green')
+        white = pygame.Color("white")
+        green = pygame.Color("green")
 
         grid = self.life.curr_generation
 
@@ -46,13 +53,15 @@ class GUI(UI):
                 x = w * self.cell_size
 
                 color = white if grid[h][w] == 0 else green
-                pygame.draw.rect(self.screen, color, [x + 1, y + 1, self.cell_size - 1, self.cell_size - 1])
+                pygame.draw.rect(
+                    self.screen, color, [x + 1, y + 1, self.cell_size - 1, self.cell_size - 1]
+                )
 
     def run(self) -> None:
         pygame.init()
         clock = pygame.time.Clock()
-        pygame.display.set_caption('Game of Life')
-        self.screen.fill(pygame.Color('white'))
+        pygame.display.set_caption("Game of Life")
+        self.screen.fill(pygame.Color("white"))
 
         # Создание списка клеток
         self.life.curr_generation = self.life.create_grid(randomize=True)
@@ -63,7 +72,7 @@ class GUI(UI):
         while running:
             try:
                 for event in pygame.event.get():
-                    if event.type == QUIT:
+                    if event.type == pygame.QUIT:
                         running = False
 
                     elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -94,7 +103,8 @@ class GUI(UI):
 
         pygame.quit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     life = GameOfLife((24, 80), max_generations=50)
 
     ui = GUI(life, cell_size=20)

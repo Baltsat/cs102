@@ -52,7 +52,7 @@ class GameOfLife:
         running = True
         while running:
             for event in pygame.event.get():
-                if event.type == QUIT:
+                if event.type == pygame.QUIT:
                     running = False
 
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -97,18 +97,16 @@ class GameOfLife:
             Матрица клеток размером `cell_height` х `cell_width`.
         """
         return [
-            [
-                random.choice([0, 1]) if randomize else 0
-                for _ in range(self.cell_width)
-            ] for _ in range(self.cell_height)
+            [random.choice([0, 1]) if randomize else 0 for _ in range(self.cell_width)]
+            for _ in range(self.cell_height)
         ]
 
     def draw_grid(self) -> None:
         """
         Отрисовка списка клеток с закрашиванием их в соответствующе цвета.
         """
-        white = pygame.Color('white')
-        green = pygame.Color('green')
+        white = pygame.Color("white")
+        green = pygame.Color("green")
 
         for h in range(self.cell_height):
             for w in range(self.cell_width):
@@ -116,7 +114,9 @@ class GameOfLife:
                 x = w * self.cell_size
 
                 color = white if self.grid[h][w] == 0 else green
-                pygame.draw.rect(self.screen, color, [x + 1, y + 1, self.cell_size - 1, self.cell_size - 1])
+                pygame.draw.rect(
+                    self.screen, color, [x + 1, y + 1, self.cell_size - 1, self.cell_size - 1]
+                )
 
     def get_neighbours(self, cell: Cell) -> Cells:
         """
@@ -175,6 +175,7 @@ class GameOfLife:
 
         return new_grid
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     game = GameOfLife(320, 240, 20)
     game.run()

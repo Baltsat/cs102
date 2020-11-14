@@ -14,7 +14,7 @@ Grid = tp.List[Cells]
 class GameOfLife:
     def __init__(
         self,
-        size: tp.Tuple[int, int],
+        size: tp.Tuple[int, int] = (24, 80),
         randomize: bool = True,
         max_generations: tp.Optional[float] = float("inf"),
     ) -> None:
@@ -31,10 +31,8 @@ class GameOfLife:
 
     def create_grid(self, randomize: bool = False) -> Grid:
         return [
-            [
-                random.choice([0, 1]) if randomize else 0
-                for _ in range(self.cols)
-            ] for _ in range(self.rows)
+            [random.choice([0, 1]) if randomize else 0 for _ in range(self.cols)]
+            for _ in range(self.rows)
         ]
 
     def get_neighbours(self, cell: Cell) -> Cells:
@@ -74,14 +72,19 @@ class GameOfLife:
         Выполнить один шаг игры.
         """
         self.generations += 1
-        self.prev_generation, self.curr_generation = self.curr_generation, self.get_next_generation()
+        self.prev_generation, self.curr_generation = (
+            self.curr_generation,
+            self.get_next_generation(),
+        )
 
     @property
     def is_max_generations_exceeded(self) -> bool:
         """
         Не превысило ли текущее число поколений максимально допустимое.
         """
-        return self.generations >= self.max_generations
+        if self.max_generations:
+            return self.generations >= self.max_generations
+        return True
 
     @property
     def is_changing(self) -> bool:
@@ -112,10 +115,7 @@ class GameOfLife:
         """
         Сохранить текущее состояние клеток в указанный файл.
         """
-        grid_txt = '\n'.join([''.join(map(str, col)) for col in self.curr_generation])
+        grid_txt = "\n".join(["".join(map(str, col)) for col in self.curr_generation])
 
-        with filename.open(mode='w') as file:
+        with filename.open(mode="w") as file:
             file.write(grid_txt)
-if __name__ == '__main__':
-    game = GameOfLife()
-    game.run()
