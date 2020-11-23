@@ -33,7 +33,9 @@ class Console(UI):
         screen = curses.initscr()
 
         running = True
-        while (self.life.is_changing and not self.life.is_max_generations_exceeded) and running:
+        while (
+            self.life.is_changing and not self.life.is_max_generations_exceeded
+        ) and running:
             try:
                 screen.clear()
 
@@ -45,8 +47,6 @@ class Console(UI):
                 screen.refresh()
                 time.sleep(0.5)
 
-                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-                    running = False
             except KeyboardInterrupt:
                 running = False
 
