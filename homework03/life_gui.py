@@ -11,14 +11,12 @@ class GUI(UI):
     def __init__(
         self,
         life: GameOfLife,
-        cell_size: int = 10,
+        cell_size: int = 20,
         speed: int = 10,
-        width: int = 100,
-        height: int = 140,
     ) -> None:
 
-        self.width = width
-        self.height = height
+        self.width = life.cols * cell_size
+        self.height = life.rows * cell_size
         self.cell_size = cell_size
 
         # Устанавливаем размер окна
@@ -107,7 +105,7 @@ class GUI(UI):
 
 
 if __name__ == "__main__":
-    life = GameOfLife((24, 80), max_generations=50)
+    life = GameOfLife(size=(48, 64), max_generations=50)
 
-    ui = GUI(life, cell_size=20)
+    ui = GUI(life)
     ui.run()

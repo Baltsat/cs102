@@ -12,7 +12,7 @@ Grid = tp.List[Cells]
 
 class GameOfLife:
     def __init__(
-        self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10
+        self, width: int = 640, height: int = 480, cell_size: int = 20, speed: int = 10
     ) -> None:
         self.width = width
         self.height = height
@@ -46,7 +46,7 @@ class GameOfLife:
 
         # Создание списка клеток
         # Создание списка клеток
-        self.grid = self.create_grid(randomize=False)
+        self.grid = self.create_grid(randomize=True)
 
         pause = True
 
