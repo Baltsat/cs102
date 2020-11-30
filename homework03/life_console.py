@@ -33,7 +33,7 @@ class Console(UI):
         screen = curses.initscr()
 
         running = True
-        while (self.life.is_changing and not self.life.is_max_generations_exceeded) and running:
+        while (self.life.is_changing or not self.life.is_max_generations_exceeded) and running:
             try:
                 screen.clear()
 
@@ -53,6 +53,5 @@ class Console(UI):
 
 if __name__ == "__main__":
     life = GameOfLife((24, 80), max_generations=50)
-
     ui = Console(life)
     ui.run()
