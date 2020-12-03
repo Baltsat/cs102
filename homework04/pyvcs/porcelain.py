@@ -3,8 +3,7 @@ import pathlib
 import typing as tp
 
 from pyvcs.index import read_index, update_index
-from pyvcs.objects import (commit_parse, find_object, find_tree_files,
-                           read_object)
+from pyvcs.objects import commit_parse, find_object, find_tree_files, read_object
 from pyvcs.refs import get_ref, is_detached, resolve_head, update_ref
 from pyvcs.tree import commit_tree, write_tree
 
