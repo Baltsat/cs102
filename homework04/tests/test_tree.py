@@ -54,7 +54,7 @@ class WriteTreeTestCase(TestCase):
         self.assertTrue(numbers_tree_obj.exists())
 
 
-@unittest.skipIf(pyvcs.__version_info__ < (0, 6, 0), "Нужна версия пакета 0.6.0 и выше")
+@unittest.skipIf(pyvcs.__version_info__ < (0, 6, 0), "cНужна версия пакета 0.6.0 и выше")
 class CommitTreeTestCase(TestCase):
     def setUp(self):
         self.setUpPyfakefs()

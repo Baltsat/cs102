@@ -9,7 +9,6 @@ from pyvcs.tree import commit_tree, write_tree
 
 
 def cmd_init(args: argparse.Namespace) -> None:
-    # TODO: Reinitialized existing pyvcs repository
     gitdir = repo_create(args.path)
     print(f"Initialized empty pyvcs repository in {gitdir.absolute()}")
 
