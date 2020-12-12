@@ -24,7 +24,7 @@ def add_init_subparser(subparsers) -> None:
         type=pathlib.Path,
         nargs="?",
         default=".",
-        help="Where to create a repository.",
+        help="Where to create the repository.",
     )
     init_subparser.set_defaults(func=cmd_init)
 
@@ -116,6 +116,7 @@ def add_write_tree_subparser(subparsers) -> None:
 
 
 def add_commit_tree_subparser(subparsers) -> None:
+    # FIXME: Add author
     commit_tree_subparser = subparsers.add_parser("commit-tree", help="Create a new commit object.")
     commit_tree_subparser.add_argument("tree", help="An existing tree object")
     commit_tree_subparser.add_argument("-p", dest="parent", help="Id of a parent commit object")
@@ -126,6 +127,7 @@ def add_commit_tree_subparser(subparsers) -> None:
 
 
 def add_update_ref_subparser(subparsers) -> None:
+    # FIXME: Добавить описание для аргументов
     update_ref_subparser = subparsers.add_parser(
         "update-ref", help="Update the object name stored in a ref safely."
     )
@@ -135,12 +137,14 @@ def add_update_ref_subparser(subparsers) -> None:
 
 
 def add_rev_parse_subparser(subparsers) -> None:
+    # FIXME: Добавить описание для аргументов
     rev_parse_subparser = subparsers.add_parser("rev-parse", help="")
     rev_parse_subparser.add_argument("rev", help="")
     rev_parse_subparser.set_defaults(func=cmd_rev_parse)
 
 
 def add_symbolic_ref_subparser(subparsers) -> None:
+    # FIXME: Добавить описание для аргументов
     symbolic_ref_subparser = subparsers.add_parser("symbolic-ref", help="Modify symbolic refs.")
     symbolic_ref_subparser.add_argument("name", help="")
     symbolic_ref_subparser.add_argument("ref", help="")
@@ -148,6 +152,7 @@ def add_symbolic_ref_subparser(subparsers) -> None:
 
 
 def add_checkout_subparser(subparsers) -> None:
+    # FIXME: Добавить описание для аргументов
     checkout_subparser = subparsers.add_parser("checkout", help="")
     checkout_subparser.add_argument("obj_name", help="")
     checkout_subparser.set_defaults(func=cmd_checkout)
