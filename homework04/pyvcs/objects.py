@@ -57,7 +57,7 @@ def find_object(obj_name: str, gitdir: pathlib.Path) -> str:
     """
     Not required, but might be useful
     """
-    
+
     dir_name = obj_name[:2]
     file_name = obj_name[2:]
     path = str(gitdir) + os.sep + dir_name + os.sep + file_name

@@ -28,14 +28,10 @@ def write_tree(gitdir: pathlib.Path, index: tp.List[GitIndexEntry], dirname: str
             name = f"{os.sep}".join(names[1:])
             mode = "40000"
             tree_entry = f"{mode} {prefix}\0".encode()
-            tree_entry += bytes.fromhex(
-                write_tree(gitdir, index, name)
-            )
+            tree_entry += bytes.fromhex(write_tree(gitdir, index, name))
             tree_entries.append(tree_entry)
         else:
-            if (
-                dirname and entry.name.find(dirname) == -1
-            ):
+            if dirname and entry.name.find(dirname) == -1:
                 continue
             with open(entry.name, "rb") as content:
                 data = content.read()
@@ -77,7 +73,6 @@ def commit_tree(
 
     author_str = f"{author} <{email}>"
 
-    
     data = f"tree {tree}\n"
     if parent:
         data += f"parent {parent}\n"

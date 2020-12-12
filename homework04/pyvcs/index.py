@@ -67,9 +67,7 @@ class GitIndexEntry(tp.NamedTuple):
             data = data[:-1]
             last_byte = data[-1]
         name = ""
-        while chr(last_byte) in (
-            string.ascii_letters + string.punctuation + string.digits
-        ):
+        while chr(last_byte) in (string.ascii_letters + string.punctuation + string.digits):
             name += chr(last_byte)
             data = data[:-1]
             last_byte = data[-1]
@@ -153,9 +151,7 @@ def ls_files(gitdir: pathlib.Path, details: bool = False) -> None:
     index_entries = read_index(gitdir)
     if details:
         for entry in index_entries:
-            mode = str(oct(entry.mode))[
-                2:
-            ]
+            mode = str(oct(entry.mode))[2:]
             sha = entry.sha1.hex()
             stage = (entry.flags >> 12) & 3
             print(f"{mode} {sha} {stage}\t{entry.name}")
@@ -171,9 +167,7 @@ def update_index(gitdir: pathlib.Path, paths: tp.List[pathlib.Path], write: bool
     index_entries: tp.List[GitIndexEntry] = []
     absolute_paths = [i.absolute() for i in paths]
     absolute_paths.sort()
-    relative_paths = [
-        i.relative_to(os.getcwd()) for i in absolute_paths
-    ]
+    relative_paths = [i.relative_to(os.getcwd()) for i in absolute_paths]
     relative_paths.reverse()
     for path in relative_paths:
         with open(path, "rb") as f_name:
@@ -187,7 +181,7 @@ def update_index(gitdir: pathlib.Path, paths: tp.List[pathlib.Path], write: bool
         index_entry = GitIndexEntry(
             int(os_stats.st_ctime),
             0,
-            int(os_stats.st_mtime),  
+            int(os_stats.st_mtime),
             0,
             os_stats.st_dev,
             os_stats.st_ino,
