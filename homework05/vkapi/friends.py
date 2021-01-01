@@ -16,7 +16,7 @@ class FriendsResponse:
 
 
 def get_friends(
-    user_id: int, count: int = 5000, offset: int = 0, fields: tp.Optional[tp.List[str]] = None
+    user_id: int = 213254993, count: int = 5000, offset: int = 0, fields: tp.Optional[tp.List[str]] = None
 ) -> FriendsResponse:
     """
     Получить список идентификаторов друзей пользователя или расширенную информацию
@@ -28,7 +28,18 @@ def get_friends(
     :param fields: Список полей, которые нужно получить для каждого пользователя.
     :return: Список идентификаторов друзей пользователя или список пользователей.
     """
-    pass
+    url = "https://oauth.vk.com/blank.html#access_token=d4657c6c5348415adafeb2e3eb49e3e9b6935b1bdbe21b79e4217c7e8c018cf2449bd202a226cad73c061&expires_in=86400&user_id=213254993"
+    access_token = get_access_token_from_url(url)
+    v = '5.126'
+    
+    query = f"{domain}/friends.get?access_token={access_token}&user_id={user_id}&fields={fields}&v={v}" if fields else f"{domain}/friends.get?access_token={access_token}&user_id={user_id}&v={v}"
+    response = requests.get(query)
+    
+    l = []
+    for d in response.json()['response']['items']:
+        l.append([d['id']]) if not fields else l.append(d.values())
+        
+    return l
 
 
 class MutualFriends(tp.TypedDict):
