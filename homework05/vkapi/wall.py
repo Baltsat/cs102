@@ -20,7 +20,22 @@ def get_posts_2500(
     extended: int = 0,
     fields: tp.Optional[tp.List[str]] = None,
 ) -> tp.Dict[str, tp.Any]:
-    pass
+    wall = session.get(
+        "execute",
+        code = """
+        var result = [];
+        while cursor < offset + max_count {
+            var result = API.wall.get({
+
+            })
+            cursor = cursor + 100;
+        }
+        return result
+        """,
+        offset = offset,
+        max_count = max_count,
+    )
+    
 
 
 def get_wall_execute(
