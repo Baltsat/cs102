@@ -16,7 +16,10 @@ class FriendsResponse:
 
 
 def get_friends(
-    user_id: int, count: int = 5000, offset: int = 0, fields: tp.Optional[tp.List[str]] = None
+    user_id: int,
+    count: int = 5000,
+    offset: int = 0,
+    fields: tp.Optional[tp.List[str]] = None,
 ) -> FriendsResponse:
     """
     Получить список идентификаторов друзей пользователя или расширенную информацию
@@ -49,7 +52,7 @@ class MutualFriends(tp.TypedDict):
 def get_mutual(
     source_uid: tp.Optional[int] = None,
     target_uid: tp.Optional[int] = None,
-    target_uids: tp.Optional[tp.List[int]] = None,
+    target_uids: tp.Optional[tp.List[int]] = None,  # type: ignore
     order: str = "",
     count: tp.Optional[int] = None,
     offset: int = 0,
@@ -66,7 +69,7 @@ def get_mutual(
     :param offset: Смещение, необходимое для выборки определенного подмножества общих друзей.
     :param progress: Callback для отображения прогресса.
     """
-    if target_uid is not None:
+    if target_uid:
         return session.get(
             "friends.getMutual",
             params={
@@ -78,30 +81,30 @@ def get_mutual(
             },
         ).json()["response"]
 
-    result = []
-    range_ = range(0, len(target_uids), 100)
+    result: tp.List[MutualFriends] = []
+    range_ = range(0, len(target_uids), 100)  # type: ignore
     if progress is not None:
         range_ = progress(range_)
 
-    for cursor in range_:
+    for shift in range_:
         response = session.get(
             "friends.getMutual",
             params={
                 "source_uid": source_uid,
-                "target_uids": target_uids[cursor : cursor + 100],
+                "target_uids": target_uids[shift : shift + 100],  # type: ignore
                 "order": order,
                 "count": count,
-                "offset": offset + cursor,  # todo
+                "offset": offset + shift,
             },
         ).json()["response"]
         result.extend(
-                MutualFriends(
-                    id=data["id"],
-                    common_friends=data["common_friends"],
-                    common_count=data["common_count"],
-                )
-                for data in response
+            MutualFriends(
+                id=data["id"],
+                common_friends=data["common_friends"],
+                common_count=data["common_count"],
+            )
+            for data in response
         )
-        time.sleep(1 / 3 + 0.01)
+        time.sleep(0.34)
 
     return result

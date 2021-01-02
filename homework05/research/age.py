@@ -19,11 +19,11 @@ def age_predict(user_id: int) -> tp.Optional[float]:
     friends = get_friends(user_id)
     for friend in friends.items:
         try:
-            bdate = dt.datetime.strptime(friend["bdate"], '%d.%m.%Y') 
-            age = relativedelta(dt.datetime.now(), bdate).years
+            birthdate = dt.datetime.strptime(friend["bdate"], "%d.%m.%Y")  # type: ignore
+            age = relativedelta(dt.datetime.now(), birthdate).years
             ages.append(age)
         except (KeyError, ValueError):
             pass
-    if not ages:
+    if ages == []:
         return None
     return statistics.median(ages)

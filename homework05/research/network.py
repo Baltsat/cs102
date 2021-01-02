@@ -19,12 +19,14 @@ def ego_network(
     :param friends: Идентификаторы друзей, между которыми устанавливаются связи.
     """
     network = []
-    friends = friends or get_friends(user_id).items
+    if not friends:
+        get_friends(user_id).items  # type: ignore
     mutual_friends = get_mutual(source_uid=user_id, target_uids=friends)
     for target in mutual_friends:
-        for friend in target["common_friends"]:
-            network.append((target["id"], friend))
+        for friend in target["common_friends"]:  # type: ignore
+            network.append((target["id"], friend))  # type: ignore
     return network
+
 
 def plot_ego_network(net: tp.List[tp.Tuple[int, int]]) -> None:
     graph = nx.Graph()

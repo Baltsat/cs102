@@ -31,10 +31,10 @@ class Session(requests.Session):
         self.base_url = base_url
         self.timeout = timeout
 
-    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:  # type: ignore
         kwargs["timeout"] = kwargs.get("timeout", self.timeout)
         return super().get(f"{self.base_url}/{url}", *args, **kwargs)
 
-    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:  # type: ignore
         kwargs["timeout"] = kwargs.get("timeout", self.timeout)
         return super().post(f"{self.base_url}/{url}", *args, **kwargs)
