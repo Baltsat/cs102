@@ -37,7 +37,7 @@ def get_friends(
             "user_id": user_id,
             "count": count,
             "offset": offset,
-            "fields": "" if fields==None else ",".join(fields),
+            "fields": fields,
             "access_token": config.VK_CONFIG["access_token"],
             "v": config.VK_CONFIG["version"],
         },
@@ -92,18 +92,17 @@ def get_mutual(
             return response["response"]
         raise APIError(response["error"]["error_msg"])
 
-    
-    result = [] #type: ignore
+    result = []  # type: ignore
     if not target_uids:
         raise Exception
     window = range(0, len(target_uids), 100)
     if progress:
         window = progress(window)
 
-#    if progress is not None:
-#        progress = lambda x: x
-#
-#    for shift in progress(range(0, len(target_uids), 100):
+    #    if progress is not None:
+    #        progress = lambda x: x
+    #
+    #    for shift in progress(range(0, len(target_uids), 100):
     for pos in window:
         response = session.get(
             "friends.getMutual",
@@ -116,14 +115,14 @@ def get_mutual(
                 "access_token": config.VK_CONFIG["access_token"],
                 "v": config.VK_CONFIG["version"],
             },
-        ).json() 
+        ).json()
         if "response" in response:
             data = response["response"]
         else:
             raise APIError(response["error"]["error_msg"])
-            
+
         result.extend(
-            MutualFriends( #type: ignore
+            MutualFriends(  # type: ignore
                 id=info["id"],
                 common_friends=info["common_friends"],
                 common_count=info["common_count"],
