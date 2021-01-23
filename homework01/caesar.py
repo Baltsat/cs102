@@ -71,9 +71,15 @@ def caesar_breaker(ciphertext: str, dictionary: tp.Set[str]) -> int:
     3
     """
     best_shift = 0
+    best_shift_num = 0  # sorting parameter
 
-    for word in dictionary:
-        for shift in range(26):
-            if decrypt_caesar(ciphertext, shift) == word:
-                best_shift = shift
+    for shift in range(26):
+        shift_num = 0
+        for word in ciphertext.split():
+            if decrypt_caesar(word, shift) in dictionary:
+                shift_num += 1
+        if shift_num > best_shift_num:
+            best_shift = shift
+            best_shift_num = shift_num
+
     return best_shift
