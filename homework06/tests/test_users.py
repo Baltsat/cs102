@@ -1,3 +1,5 @@
+# type: ignore
+
 import pytest
 from users import Base, User, create_engine, get_session, save_user
 

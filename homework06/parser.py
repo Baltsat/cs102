@@ -1,7 +1,7 @@
 from typing import Any, Dict, List
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # type: ignore
 
 
 def extract_news(html_doc: str, n_of_news_to_extract: int = 30) -> List[Dict[str, Any]]:
