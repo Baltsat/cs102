@@ -1,8 +1,9 @@
 # type: ignore
 
 from parser import extract_news, extract_next_page_url, get_news
-from bs4 import BeautifulSoup
+
 import requests
+from bs4 import BeautifulSoup
 
 
 @pytest.fixture

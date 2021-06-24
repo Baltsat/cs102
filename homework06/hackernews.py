@@ -1,10 +1,11 @@
 # type: ignore
-from bottle import route, run, template, request, redirect
 import string
+from parser import get_news
+
+from bottle import redirect, request, route, run, template
 
 from bayes import NaiveBayesClassifier
 from db import News, session
-from parser import get_news
 
 
 @tp.no_type_check

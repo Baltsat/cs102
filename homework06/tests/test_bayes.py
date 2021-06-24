@@ -1,7 +1,8 @@
-import bayes
 import csv
-import hackernews
 import pathlib
+
+import bayes
+import hackernews
 
 
 def test_classification_single_words():

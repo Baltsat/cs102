@@ -1,9 +1,9 @@
 # type: ignore
 
+import typing as tp
 from collections import defaultdict
 from math import log
 from statistics import mean
-import typing as tp
 
 
 class NaiveBayesClassifier:
