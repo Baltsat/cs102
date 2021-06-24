@@ -1,13 +1,11 @@
 # type: ignore
 import string
+import typing as tp
 from parser import get_news
 
 from bayes import NaiveBayesClassifier
 from bottle import redirect, request, route, run, template
 from db import News, session
-
-import typing as tp
-
 
 
 @tp.no_type_check
