@@ -6,7 +6,6 @@ import requests
 from bs4 import BeautifulSoup
 
 
-@pytest.fixture
 def html_doc():
     return """
     <html lang="en" op="news"><head><meta name="referrer" content="origin"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="news.css?DqVgzIak3Krx8fVwunvN">
@@ -155,11 +154,6 @@ def html_doc():
             </center></td></tr>
       </table></center></body><script type='text/javascript' src='hn.js?DqVgzIak3Krx8fVwunvN'></script></html>
     """
-
-
-# @pytest.fixture
-# def html_link():
-#     return """<a href="?page=2">next</a>"""
 
 
 def test_extract_news():

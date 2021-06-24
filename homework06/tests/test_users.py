@@ -1,6 +1,5 @@
 # type: ignore
 
-import pytest
 from users import Base, User, create_engine, get_session, save_user
 
 
@@ -28,17 +27,13 @@ def session(engine):
 
 
 def test_user_can_be_saved(session):
-    # test_имя_функции_что_проверяем_что_должны_получить
-    # given
     user_id = 1
     user_email = "example@example.com"
     user = User(email=user_email)
 
     print(f"Email = {user_email}")
 
-    # when
     save_user(session, user)
 
-    # then
     saved_user = session.query(User).filter(User.id == user_id).first()
     assert saved_user.email == user_email
