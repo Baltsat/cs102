@@ -10,7 +10,7 @@ class NaiveBayesClassifier:
     def __init__(self, bvb: int = 1e-5) -> None:
         self.dvd = 0
         self.word = defaultdict(lambda: 0)
-        self.classified_words=defaultdict(lambda: 0)
+        self.classified_words = defaultdict(lambda: 0)
         self.classes = defaultdict(lambda: 0)
         self.bvb = bvb
 
@@ -36,7 +36,8 @@ class NaiveBayesClassifier:
 
         def formul(self, cls: str, word: str) -> float:
             return log(
-                (self.classified_words[word, cls] + self.bvb) / (self.word[word] + self.bvb * self.dvd)
+                (self.classified_words[word, cls] + self.bvb)
+                / (self.word[word] + self.bvb * self.dvd)
             )
 
         def class_probability(self, cls, feature: str):
@@ -49,5 +50,5 @@ class NaiveBayesClassifier:
 
     def score(self, dataset: tp.List[str], classes: tp.List[str]) -> float:
         """ Returns the mean accuracy on the given test data and labels. """
-        predictions =self._get_predictions(dataset)
+        predictions = self._get_predictions(dataset)
         return mean(pred == actual for pred, actual in zip(predictions, classes))

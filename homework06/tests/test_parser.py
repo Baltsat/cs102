@@ -165,35 +165,46 @@ def html_doc():
 def test_extract_news():
     # url = "https://news.ycombinator.com/"
 
-    assert extract_news(html_doc(), 1) == [{'author': 'fortran77',
-  'author_url': 'user?id=fortran77',
-  'comments': '133',
-  'points': 140,
-  'title': "NASA Can't Figure Out What's Causing Computer Issues on the Hubble Telescope",
-  'url': 'https://www.npr.org/2021/06/23/1009567351/hubble-trouble-nasa-cant-figure-out-whats-causing-computer-issues-on-the-telesco',
-  'resource_text': 'npr.org',
-  'resource_url': 'from?site=npr.org'}]
+    assert extract_news(html_doc(), 1) == [
+        {
+            "author": "fortran77",
+            "author_url": "user?id=fortran77",
+            "comments": "133",
+            "points": 140,
+            "title": "NASA Can't Figure Out What's Causing Computer Issues on the Hubble Telescope",
+            "url": "https://www.npr.org/2021/06/23/1009567351/hubble-trouble-nasa-cant-figure-out-whats-causing-computer-issues-on-the-telesco",
+            "resource_text": "npr.org",
+            "resource_url": "from?site=npr.org",
+        }
+    ]
 
-    assert extract_news(html_doc(), 2) == [{'author': 'fortran77',
-  'author_url': 'user?id=fortran77',
-  'comments': '133',
-  'points': 140,
-  'title': "NASA Can't Figure Out What's Causing Computer Issues on the Hubble Telescope",
-  'url': 'https://www.npr.org/2021/06/23/1009567351/hubble-trouble-nasa-cant-figure-out-whats-causing-computer-issues-on-the-telesco',
-  'resource_text': 'npr.org',
-  'resource_url': 'from?site=npr.org'},
- {'author': 'TangerineDream',
-  'author_url': 'user?id=TangerineDream',
-  'comments': '2',
-  'points': 17,
-  'title': 'The Next Backblaze Storage Pod',
-  'url': 'https://www.backblaze.com/blog/next-backblaze-storage-pod/',
-  'resource_text': 'backblaze.com',
-  'resource_url': 'from?site=backblaze.com'}]
+    assert extract_news(html_doc(), 2) == [
+        {
+            "author": "fortran77",
+            "author_url": "user?id=fortran77",
+            "comments": "133",
+            "points": 140,
+            "title": "NASA Can't Figure Out What's Causing Computer Issues on the Hubble Telescope",
+            "url": "https://www.npr.org/2021/06/23/1009567351/hubble-trouble-nasa-cant-figure-out-whats-causing-computer-issues-on-the-telesco",
+            "resource_text": "npr.org",
+            "resource_url": "from?site=npr.org",
+        },
+        {
+            "author": "TangerineDream",
+            "author_url": "user?id=TangerineDream",
+            "comments": "2",
+            "points": 17,
+            "title": "The Next Backblaze Storage Pod",
+            "url": "https://www.backblaze.com/blog/next-backblaze-storage-pod/",
+            "resource_text": "backblaze.com",
+            "resource_url": "from?site=backblaze.com",
+        },
+    ]
 
 
 def extract_next_page_url():
     assert extract_next_page(html_doc()) == "?p=2"
+
 
 @responses.activate
 def test_get_news():
