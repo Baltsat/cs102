@@ -2,9 +2,6 @@
 
 from parser import extract_news, extract_next_page_url, get_news
 
-import requests
-from bs4 import BeautifulSoup
-
 
 def html_doc():
     return """
@@ -200,7 +197,6 @@ def extract_next_page_url():
     assert extract_next_page(html_doc()) == "?p=2"
 
 
-@responses.activate
 def test_get_news():
     news = []
     url = "https://news.ycombinator.com/"
