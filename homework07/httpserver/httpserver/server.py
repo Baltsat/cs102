@@ -1,8 +1,8 @@
-# type: ignore
-
 import socket
 import threading
 import typing as tp
+
+import os
 
 from .handlers import BaseRequestHandler
 
@@ -24,11 +24,14 @@ class TCPServer:
         if backlog_size < 0:
             backlog_size = 0
 
+        if os.name == "nt" and backlog_size > 5:
+            backlog_size = 5
         self.backlog_size = backlog_size
         self.request_handler_cls = request_handler_cls
         self.max_workers = max_workers
-        self.timeout = timeout
+        self.timeout: tp.Optional[float] = timeout
         self._threads: tp.List[threading.Thread] = []
+        self._thread_limiter = threading.BoundedSemaphore(self.max_workers)
 
     def serve_forever(self) -> None:
         # @see: http://veithen.io/2014/01/01/how-tcp-backlog-works-in-linux.html
@@ -40,7 +43,7 @@ class TCPServer:
         s.listen(self.backlog_size)
         try:
             while True:
-                # connect to the client
+                # establish connection with client
                 try:
                     c, addr = s.accept()
                     c.settimeout(self.timeout)

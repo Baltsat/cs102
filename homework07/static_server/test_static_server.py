@@ -87,7 +87,8 @@ class TestStaticHTTPServer(unittest.TestCase):
         self.assertEqual(int(length), 62)
         self.assertEqual(len(data), 62)
         self.assertEqual(
-            data.decode(), "Would you tell me, please, which way I ought to go from here?\n"
+            data.decode(),
+            "Would you tell me, please, which way I ought to go from here?\n",
         )
 
     def test_file_with_slash(self):
