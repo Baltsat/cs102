@@ -1,6 +1,7 @@
 import dataclasses
-from http import HTTPStatus
 import typing as tp
+from http import HTTPStatus
+
 
 @dataclasses.dataclass
 class HTTPResponse:

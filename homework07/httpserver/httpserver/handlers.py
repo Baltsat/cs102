@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-import socket
 import select
+import socket
 import typing as tp
 
 from httptools import HttpRequestParser
-
 from request import HTTPRequest
 from response import HTTPResponse
 
