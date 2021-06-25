@@ -105,7 +105,6 @@ class StaticHTTPRequestHandler(BaseHTTPRequestHandler):
 
 
 class StaticServer(HTTPServer):
-
     def __init__(self, d_root: pathlib.Path, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.document_root: pathlib.Path = d_root
