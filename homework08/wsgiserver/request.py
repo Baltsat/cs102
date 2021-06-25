@@ -1,6 +1,8 @@
+# type: ignore
+
 import dataclasses
-import typing as tp
 import io
+import typing as tp
 import urllib.parse
 
 from httpserver import HTTPRequest

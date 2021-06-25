@@ -1,3 +1,5 @@
+# type: ignore
+
 import dataclasses
 import typing as tp
 

@@ -1,3 +1,5 @@
+# type: ignore
+
 import typing as tp
 
 from httpserver import BaseHTTPRequestHandler, HTTPServer
@@ -29,4 +31,3 @@ class WSGIRequestHandler(BaseHTTPRequestHandler):
         # ответ приложения представить в виде байтовой строки
         # вернуть объект класса WSGIResponse
         pass
-
