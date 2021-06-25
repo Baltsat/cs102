@@ -1,8 +1,10 @@
+# type: ignore
+
 import socket
 import threading
 import typing as tp
 
-from handlers import BaseRequestHandler
+from .handlers import BaseRequestHandler
 
 
 class TCPServer:
