@@ -56,13 +56,9 @@ class StaticHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_HEAD(self):
         pass
-    
+
     def do_HEAD(self):
         pass
-
-
-
-
 
 
 class StaticServer(HTTPServer):
