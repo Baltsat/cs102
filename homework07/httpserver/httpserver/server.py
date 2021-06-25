@@ -1,8 +1,7 @@
+import os
 import socket
 import threading
 import typing as tp
-
-import os
 
 from .handlers import BaseRequestHandler
 
