@@ -4,8 +4,11 @@ import pathlib
 from email.utils import formatdate
 from urllib.parse import unquote, urlparse
 
-from httpserver.httpserver.handlers import (BaseHTTPRequestHandler,
-                                            HTTPResponse, HTTPServer)
+from httpserver.httpserver.handlers import (
+    BaseHTTPRequestHandler,
+    HTTPResponse,
+    HTTPServer,
+)
 
 
 def url_normalize(path: str) -> str:
