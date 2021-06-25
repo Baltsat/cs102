@@ -1,0 +1,12 @@
+pyproject.toml
+setup.py
+httpserver/__init__.py
+httpserver/handlers.py
+httpserver/request.py
+httpserver/response.py
+httpserver/server.py
+httpserver.egg-info/PKG-INFO
+httpserver.egg-info/SOURCES.txt
+httpserver.egg-info/dependency_links.txt
+httpserver.egg-info/requires.txt
+httpserver.egg-info/top_level.txt
