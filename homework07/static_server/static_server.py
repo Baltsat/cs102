@@ -4,11 +4,7 @@ import pathlib
 from email.utils import formatdate
 from urllib.parse import unquote, urlparse
 
-from httpserver.httpserver.handlers import (
-    BaseHTTPRequestHandler,
-    HTTPResponse,
-    HTTPServer,
-)
+from httpserver.httpserver import BaseHTTPRequestHandler, HTTPResponse, HTTPServer
 
 
 def url_normalize(path: str) -> str:
@@ -109,6 +105,10 @@ class StaticHTTPRequestHandler(BaseHTTPRequestHandler):
 
 
 class StaticServer(HTTPServer):
+    """
+    Static server
+    """
+
     def __init__(self, d_root: pathlib.Path, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.document_root: pathlib.Path = d_root
@@ -117,7 +117,7 @@ class StaticServer(HTTPServer):
 if __name__ == "__main__":
     document_root = pathlib.Path("static") / "root"
     server = StaticServer(
-        timeout=5,
+        timeout=3,
         d_root=document_root,
         port=5000,
         request_handler_cls=StaticHTTPRequestHandler,
