@@ -4,7 +4,7 @@ from app.services.auth import get_current_user
 from fastapi import Depends, HTTPException, status
 
 
-@app.get('/note/{note_id}')
+@app.get("/note/{note_id}")
 async def h(note_id: int, current_user: User = Depends(get_current_user)):
     note = await Note.filter(author=current_user, id=note_id).first()
     if not note:
