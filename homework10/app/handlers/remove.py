@@ -1,11 +1,8 @@
-from fastapi import Depends
-
 from app import app
-
-from pydantic import BaseModel
-
-from app.models import User, Note
+from app.models import Note, User
 from app.services.auth import get_current_user
+from fastapi import Depends
+from pydantic import BaseModel
 
 
 class NoteModel(BaseModel):
