@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+</head>
+<body>
+Login
+<form action="/token" method="post" id="login_form">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="psw" required>
+
+    <button type="submit">Login</button>
+    <button type="button" onclick="register()">Register</button>
+</form>
+<script>
+    let form = document.getElementById('login_form')
+    form.addEventListener('submit', login);
+
+    function login(e) {
+        e.preventDefault()
+        let formdata = new FormData(document.getElementById("login_form"))
+        const data = [...formdata.entries()];
+        const asString = data
+            .map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`)
+            .join('&');
+        fetch("/token", {
+            body: asString,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                // "Content-Type": "multipart/form-data",
+            },
+            method: "post",
+        }).then((res) => res.json().then((data) => {
+            if ('access_token' in data) {
+                setCookie('bearer_token', data['access_token'])
+                window.location.replace('/')
+            }
+        }))
+    }
+
+    function register() {
+
+        let formdata = new FormData(document.getElementById("login_form"))
+        const data = [...formdata.entries()];
+        const asString = data
+            .map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`)
+            .join('&');
+        fetch("/register", {
+            body: asString,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                // "Content-Type": "multipart/form-data",
+            },
+            method: "post",
+        }).then((res) => res.json().then((data) => {
+            if (res.status === 400) {
+                alert("User already exists")
+            } else {
+                let formdata = new FormData(document.getElementById("login_form"))
+                const data = [...formdata.entries()];
+                const asString = data
+                    .map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`)
+                    .join('&');
+                fetch("/token", {
+                    body: asString,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    method: "post",
+                }).then((res) => res.json().then((data) => {
+                    if ('access_token' in data) {
+                        setCookie('bearer_token', data['access_token'])
+                        window.location.replace('/')
+                    }
+                }))
+            }
+        }))
+    }
+</script>
+</body>
+</html>
