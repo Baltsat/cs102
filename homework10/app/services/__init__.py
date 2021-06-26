@@ -1,2 +1,1 @@
-from . import db
-from . import auth
+from . import auth, db

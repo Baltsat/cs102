@@ -1,13 +1,12 @@
 from datetime import timedelta
 
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
-
 from app import app
 from app.models import User
 from app.services import config
-from app.services.auth import Token, authenticate_user, create_access_token, get_user, \
-    get_password_hash
+from app.services.auth import (Token, authenticate_user, create_access_token,
+                               get_password_hash, get_user)
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 
 
 @app.post("/token", response_model=Token)

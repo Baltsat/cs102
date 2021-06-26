@@ -1,9 +1,8 @@
+from app import app
+from app.services import config
 from fastapi.logger import logger
 from tortoise import Tortoise, exceptions
 from tortoise.backends.base.config_generator import generate_config
-
-from app import app
-from app.services import config
 
 tortoise_config: dict = generate_config(config.POSTGRES_URI, {"models": ["app.models"]})
 

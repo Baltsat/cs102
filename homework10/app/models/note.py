@@ -1,7 +1,6 @@
-from tortoise import fields
-
 from app.models.base import TimestampedMixin
 from app.models.user import User
+from tortoise import fields
 
 
 class Note(TimestampedMixin):
