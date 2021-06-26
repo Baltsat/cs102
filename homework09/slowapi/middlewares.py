@@ -1,4 +1,4 @@
-from slowapi.response import Response, JsonResponse
+from slowapi.response import Response
 
 
 class Middleware:

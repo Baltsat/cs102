@@ -12,11 +12,9 @@ class Request:
     body: io.BytesIO = dataclasses.field(default_factory=io.BytesIO)
     headers: tp.Dict[str, str] = dataclasses.field(default_factory=dict)
 
-    def text(self) -> tp.Optional[str]:
-        # PUT YOUR CODE HERE
-        pass
+    def text(self) -> str:
+        text = self.body.read().decode('UTF-8')
+        return text
 
-    def json(self) -> tp.Optional[tp.Dict[str, tp.Any]]:
-        # PUT YOUR CODE HERE
-        pass
-
+    def json(self) -> tp.Dict[str, tp.Any]:
+        return json.load(self.body)
