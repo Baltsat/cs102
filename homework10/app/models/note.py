@@ -4,7 +4,7 @@ from tortoise import fields
 
 
 class Note(TimestampedMixin):
-    text = fields.TextField(null=False)
+    text = str(fields.TextField(null=False))
     author: fields.ForeignKeyRelation[User] = fields.ForeignKeyField("models.User", to_field="id")
 
     def __repr__(self):
