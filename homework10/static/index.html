@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lol</title>
+    <script src="https://unpkg.com/cookielib/src/cookie.min.js"></script>
+</head>
+<body>
+<input type="button" onclick="window.location.replace('/edit.html?id=')" value="Добавить">
+<input type="button" onclick="deleteCookie('bearer_token');window.location.replace('/')" value="Выйти">
+<script>
+    function createTable(tableData) {
+        var table = document.createElement('table');
+        var tableBody = document.createElement('tbody');
+
+        tableData.forEach(function (rowData) {
+            var row = document.createElement('tr');
+
+            rowData.forEach(function (cellData) {
+                var cell = document.createElement('td');
+                cell.innerHTML = cellData;
+                row.appendChild(cell);
+            });
+
+            tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableBody);
+        document.body.appendChild(table);
+    }
+
+    let token = getCookie('bearer_token')
+    fetch('/note', {
+        headers: {'Authorization': 'Bearer ' + token}
+    }).then((resp) => {
+        if (resp.status === 401)
+            window.location.replace('/login.html')
+        else if (resp.status === 200) {
+            resp.json().then((data) => {
+                const table = [['ID', 'text']]
+                for (let i in data) {
+                    table.push([
+                        data[i].id,
+                        data[i].text,
+                        '<input onClick="window.location=\'/edit.html?id=' + data[i].id + '\'" type="button" value="Редактировать"/>',
+                        '<input onClick="delete_note(' + data[i].id + ')" type="button" value="Удалить"/>',
+                    ])
+                }
+                createTable(table);
+            })
+        } else {
+            alert('Server error')
+        }
+    })
+
+    function delete_note(note_id) {
+        fetch('/note/' + note_id, {
+            method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        }).then((resp) => {
+                if (resp.status === 401)
+                    window.location.replace('/login.html')
+                else if (resp.status === 200) {
+                    window.location.replace('/')
+                } else {
+                    alert('Server error')
+                }
+            }
+        )
+    }
+
+</script>
+</body>
+</html>
