@@ -41,6 +41,31 @@
             }
         )
     }
+
+    function save() {
+        let token = getCookie('bearer_token')
+        let method = 'PUT'
+        if (note_id !== '')
+            method = 'PATCH'
+        fetch('/note/' + note_id, {
+            method: method,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({text: document.getElementById('text').value})
+        }).then((resp) => {
+                if (resp.status === 401)
+                    window.location.replace('/login.html')
+                else if (resp.status === 200) {
+                    window.location.replace('/')
+                } else {
+                    alert('Server error')
+                }
+            }
+        )
+    }
 </script>
 </body>
 </html>

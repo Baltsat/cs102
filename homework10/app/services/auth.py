@@ -1,13 +1,16 @@
 from datetime import datetime, timedelta
 from typing import Optional
 
-from app.models import User
-from app.services import config
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
+
+# to get a string like this run:
+# openssl rand -hex 32
+from app.models import User
+from app.services import config
 
 SECRET_KEY = config.SECRET_KEY
 ALGORITHM = config.ALGORITHM
@@ -80,3 +83,4 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     if user is None:
         raise credentials_exception
     return user
+
