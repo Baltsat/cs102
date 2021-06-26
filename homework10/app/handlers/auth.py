@@ -9,7 +9,7 @@ from app.services.auth import (
     create_access_token,
     get_password_hash,
     get_user,
-    )
+)
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
