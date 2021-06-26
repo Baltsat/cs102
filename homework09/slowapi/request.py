@@ -1,3 +1,4 @@
+# type: ignore
 import dataclasses
 import io
 import json
@@ -13,7 +14,7 @@ class Request:
     headers: tp.Dict[str, str] = dataclasses.field(default_factory=dict)
 
     def text(self) -> str:
-        text = self.body.read().decode('UTF-8')
+        text = self.body.read().decode("UTF-8")
         return text
 
     def json(self) -> tp.Dict[str, tp.Any]:

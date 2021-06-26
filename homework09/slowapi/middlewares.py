@@ -1,3 +1,4 @@
+# type: ignore
 from slowapi.response import Response
 
 
@@ -22,4 +23,3 @@ class CORSMiddleware(Middleware):
             response = self.get_response(request)
             response.headers.update(cors_headers)
             return response
-

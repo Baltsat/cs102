@@ -1,3 +1,4 @@
+# type: ignore
 import datetime as dt
 import typing as tp
 
