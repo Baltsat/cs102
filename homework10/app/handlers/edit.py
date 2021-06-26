@@ -1,9 +1,8 @@
-from fastapi import Depends, HTTPException, status
-from pydantic import BaseModel
-
 from app import app
 from app.models import Note, User
 from app.services.auth import get_current_user
+from fastapi import Depends, HTTPException, status
+from pydantic import BaseModel
 
 
 class NoteModel(BaseModel):

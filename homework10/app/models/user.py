@@ -1,6 +1,5 @@
-from tortoise import fields
-
 from app.models.base import AbstractBaseModel
+from tortoise import fields
 
 
 class User(AbstractBaseModel):

@@ -1,14 +1,13 @@
 from datetime import datetime, timedelta
 from typing import Optional
 
+from app.models import User
+from app.services import config
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
-
-from app.models import User
-from app.services import config
 
 SECRET_KEY = config.SECRET_KEY
 ALGORITHM = config.ALGORITHM
