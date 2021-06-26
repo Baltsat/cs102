@@ -22,9 +22,7 @@ def describe_credentials():
 @app.on_event("startup")
 async def on_startup():
     try:
-        await Tortoise.init(
-            config=tortoise_config,
-        )
+        await Tortoise.init(config=tortoise_config)
         await Tortoise.generate_schemas()
         logger.info("PostgreSQL Connection opened")
         logger.info(describe_credentials())

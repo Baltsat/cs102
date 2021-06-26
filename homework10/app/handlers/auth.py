@@ -6,8 +6,13 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app import app
 from app.models import User
 from app.services import config
-from app.services.auth import Token, authenticate_user, create_access_token, get_user, \
-    get_password_hash
+from app.services.auth import (
+    Token,
+    authenticate_user,
+    create_access_token,
+    get_user,
+    get_password_hash,
+)
 
 
 @app.post("/token", response_model=Token)
@@ -31,12 +36,11 @@ async def register(form_data: OAuth2PasswordRequestForm = Depends()):
     if await get_user(form_data.username):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail='User with that username already exists',
+            detail="User with that username already exists",
             headers={"WWW-Authenticate": "Bearer"},
         )
     return (
         await User.create(
-            username=form_data.username,
-            hashed_password=get_password_hash(form_data.password)
+            username=form_data.username, hashed_password=get_password_hash(form_data.password)
         )
     ).to_dict()

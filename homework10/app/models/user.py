@@ -13,5 +13,5 @@ class User(AbstractBaseModel):
     def to_dict(self):
         user_dict = self.__dict__.copy()
         user_dict.update({"user_id": self.id})
-        user_dict['hashed_password'] = None
+        user_dict["hashed_password"] = None
         return user_dict
