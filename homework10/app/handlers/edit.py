@@ -1,15 +1,18 @@
-from app import app
-from app.models import Note, User
-from app.services.auth import get_current_user
 from fastapi import Depends, HTTPException, status
+
+from app import app
+
 from pydantic import BaseModel
+
+from app.models import User, Note
+from app.services.auth import get_current_user
 
 
 class NoteModel(BaseModel):
     text: str
 
 
-@app.patch("/note/{note_id}")
+@app.patch('/note/{note_id}')
 async def h(note_id: int, note: NoteModel, current_user: User = Depends(get_current_user)):
     note_db = await Note.filter(id=note_id, author=current_user).first()
     if not note_db:

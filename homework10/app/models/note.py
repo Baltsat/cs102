@@ -1,11 +1,12 @@
+from tortoise import fields
+
 from app.models.base import TimestampedMixin
 from app.models.user import User
-from tortoise import fields
 
 
 class Note(TimestampedMixin):
-    text = str(fields.TextField(null=False))
-    author: fields.ForeignKeyRelation[User] = fields.ForeignKeyField("models.User", to_field="id")
+    text = fields.TextField(null=False)
+    author: fields.ForeignKeyRelation[User] = fields.ForeignKeyField("models.User", to_field='id')
 
     def __repr__(self):
         return "User(id='{}')".format(self.id)
