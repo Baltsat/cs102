@@ -29,9 +29,6 @@ def clean_doc(filename: str):
                 flatten.append(month_to_num(tok))
 
 
-clean_doc("text.txt")
-
-
 class DataBase:
     items: tp.List[str]
     ident: int
@@ -42,50 +39,6 @@ class DataBase:
 
     def __str__(self) -> str:
         return f"{self.ident}: {self.items}"
-
-
-result = []
-result_d: tp.Dict[str, tp.List[DataBase]] = {}
-
-last_date: str = ""
-index = 0
-while index < len(flatten):
-    tok = flatten[index]
-
-    if tok == "DATES":
-        last_date = f"{flatten[index + 1]}.{flatten[index + 2]}.{flatten[index + 3]}"
-        result_d.update({last_date: []})
-        result.append(last_date)
-        index += 6
-        continue
-
-    def read_id() -> DataBase:
-        global index
-        ret = DataBase(id=int(flatten[index][2:]), items=[])
-        index += 1
-
-        while flatten[index] != "/":
-            if flatten[index][-1] == "*":
-                for j in range(int(flatten[index][:-1])):
-                    ret.items.append(f"D{len(ret.items) + 1}")
-                index += 1
-                continue
-
-            ret.items.append(flatten[index])
-            index += 1
-
-        index += 1
-        return ret
-
-    if tok == "KEYWORD":
-        index += 1
-        result_d[last_date].append(read_id())
-        while flatten[index] != "/":
-            result_d[last_date].append(read_id())
-
-    if tok == "END":
-        break
-    index += 1
 
 
 def filtered(s: str) -> str:
@@ -111,16 +64,6 @@ def to_list(l: tp.List[DataBase]) -> tp.List[DataBase]:
     return ret
 
 
-result_str = ""
-for key, value in result_d.items():
-    if len(value) != 0:
-        print(f"{key}:")
-        result_str += f"{key}:\n"
-        for i in to_list(value):
-            print(f"    ID{i.ident} - {filtered(str(i.items))}")
-            result_str += f"    ID{i.ident} - {filtered(str(i.items))}\n"
-
-
 def output(filename):
     global result_str
     with open(filename, "wt") as f:
@@ -128,4 +71,59 @@ def output(filename):
 
 
 if __name__ == "__main__":
+
+    clean_doc("text.txt")
+
+    result = []
+    result_d: tp.Dict[str, tp.List[DataBase]] = {}
+
+    last_date: str = ""
+    index = 0
+    while index < len(flatten):
+        tok = flatten[index]
+
+        if tok == "DATES":
+            last_date = f"{flatten[index + 1]}.{flatten[index + 2]}.{flatten[index + 3]}"
+            result_d.update({last_date: []})
+            result.append(last_date)
+            index += 6
+            continue
+
+        def read_id() -> DataBase:
+            global index
+            ret = DataBase(id=int(flatten[index][2:]), items=[])
+            index += 1
+
+            while flatten[index] != "/":
+                if flatten[index][-1] == "*":
+                    for j in range(int(flatten[index][:-1])):
+                        ret.items.append(f"D{len(ret.items) + 1}")
+                    index += 1
+                    continue
+
+                ret.items.append(flatten[index])
+                index += 1
+
+            index += 1
+            return ret
+
+        if tok == "KEYWORD":
+            index += 1
+            result_d[last_date].append(read_id())
+            while flatten[index] != "/":
+                result_d[last_date].append(read_id())
+
+        if tok == "END":
+            break
+        index += 1
+
+    result_str = ""
+    for key, value in result_d.items():
+        if len(value) != 0:
+            print(f"{key}:")
+            result_str += f"{key}:\n"
+            for i in to_list(value):
+                print(f"    ID{i.ident} - {filtered(str(i.items))}")
+                result_str += f"    ID{i.ident} - {filtered(str(i.items))}\n"
+
     output("output.txt")
