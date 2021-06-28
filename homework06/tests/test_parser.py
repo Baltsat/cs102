@@ -2,6 +2,9 @@
 
 from parser import extract_news, extract_next_page_url, get_news
 
+import requests
+from bs4 import BeautifulSoup
+
 
 def html_doc():
     return """

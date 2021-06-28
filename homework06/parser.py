@@ -1,7 +1,9 @@
+# type: ignore
+
 from typing import Any, Dict, List
 
 import requests
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup
 
 
 def extract_news(html_doc: str, n_of_news_to_extract: int = 30) -> List[Dict[str, Any]]:
@@ -48,12 +50,12 @@ def extract_next_page_url(html_doc: str) -> str:
     return next_page_url
 
 
-def get_news(url="https://news.ycombinator.com/newest", n_pages: int = 5):
-    html_doc = requests.get(url).text
+def get_news(url="https://news.ycombinator.com/", n_pages: int = 5):
     news: List[Dict[str, Any]] = []
     while n_pages:
-        news += extract_news(html_doc)
+        html_doc = requests.get(url).text
+        news.extend(extract_news(html_doc))
         next_page_url = url + extract_next_page_url(html_doc)
-        html_doc = requests.get(next_page_url).text
+        url = next_page_url
         n_pages -= 1
     return news
